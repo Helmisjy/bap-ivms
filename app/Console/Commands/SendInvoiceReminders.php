@@ -84,7 +84,7 @@ class SendInvoiceReminders extends Command
             }
 
             // Jika client tidak ada → skip
-            if (!$invoice->clients || !$invoice->clients->email) {
+            if (!$invoice->client || !$invoice->client->email) {
                 $this->warn("Invoice {$invoice->id} tidak memiliki client/email. Dilewati.");
                 continue;
             }
@@ -99,7 +99,7 @@ class SendInvoiceReminders extends Command
             }
 
             // 🔥🔥🔥 KIRIM EMAIL
-            Mail::to($invoice->clients->email)
+            Mail::to($invoice->client->email)
                 ->send(new InvoiceReminderMail($invoice, $category));
 
             // Simpan log pengiriman

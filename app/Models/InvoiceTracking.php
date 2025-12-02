@@ -122,14 +122,5 @@ class InvoiceTracking extends Model
         return $this->belongsTo(Clients::class, 'client_id');
     }
 
-    // public function client()
-    // {
-    //     return $this->instruction ? $this->instruction->client() : null;
-    // }
-
-    
-
-
-
 
 }   
