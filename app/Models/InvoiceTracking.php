@@ -54,10 +54,34 @@ class InvoiceTracking extends Model
         static::saving(function ($model) {
             $model->calculateAging();
         });
+
+        static::updated(function ($model) {
+            if ($model->isDirty('payment_status') || $model->isDirty('payment_date')) {
+                $model->calculateAging();
+                $model->saveQuietly();
+            }
+        });
     }
 
     public function calculateAging()
     {
+
+         // Jika sudah dibayar
+        if ($this->payment_status === 'paid') {
+
+            // Jika belum ada payment_date → pakai hari ini
+            $paymentDate = $this->payment_date
+                ? Carbon::parse($this->payment_date)->startOfDay()
+                : Carbon::now()->startOfDay();
+
+            // Semua invoice paid dianggap tidak overdue
+            $this->aging_days = 0;
+            $this->aging_status = 'Paid';
+            $this->risk_level = 'Low';
+
+            return;
+        }
+
         if (!$this->inv_target) {
         $this->aging_days = 0;
         $this->aging_status = 'unknown';

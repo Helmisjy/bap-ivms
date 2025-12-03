@@ -16,4 +16,11 @@ class ListInvoiceTrackings extends ListRecords
             CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\InvoiceTrackings\Widgets\InvoiceTrackingStats::class,
+        ];
+    }
 }

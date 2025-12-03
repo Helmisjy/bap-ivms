@@ -5,6 +5,7 @@ namespace App\Filament\Resources\InvoiceTrackings\Schemas;
 use App\Models\InvoiceInstructions;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -41,10 +42,14 @@ class InvoiceTrackingForm
                 TextInput::make('aging_status')
                     ->disabled()
                     ->default(null),
-                TextInput::make('payment_status')
-                    ->required()
-                    ->disabled()
-                    ->default('unpaid'),
+                Radio::make('payment_status')
+                    ->label('Payment Status')
+                    ->options([
+                        'unpaid' => 'Unpaid',
+                        'paid'   => 'Paid',
+                    ])
+                    ->default('unpaid')
+                    ->inline(),
                 TextInput::make('risk_level')
                     ->default(null)
                     ->disabled(),

@@ -51,9 +51,12 @@ class InvoiceInstructions extends Model
 
     public function generateTrxCode()
     {
-        // recommended incremental using latest id to avoid collisions
-        $next = (self::max('id') ?? 0) + 1;
-        return 'INV_' . str_pad($next, 5, '0', STR_PAD_LEFT);
+        do {
+            $random = strtoupper(substr(bin2hex(random_bytes(3)), 0, 5));
+            $code = 'TRX-' . $random;
+        } while (self::where('trx_code', $code)->exists());
+
+        return $code;
     }
 
 

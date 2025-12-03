@@ -43,8 +43,15 @@ class InvoiceTrackingResource extends Resource
     {
         return [
             'index' => ListInvoiceTrackings::route('/'),
-            'create' => CreateInvoiceTracking::route('/create'),
-            'edit' => EditInvoiceTracking::route('/{record}/edit'),
+            // 'create' => CreateInvoiceTracking::route('/create'),
+            // 'edit' => EditInvoiceTracking::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            \App\Filament\Resources\InvoiceTrackings\Widgets\InvoiceTrackingStats::class,
         ];
     }
 }

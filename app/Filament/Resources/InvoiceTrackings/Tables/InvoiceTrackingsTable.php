@@ -48,7 +48,7 @@ class InvoiceTrackingsTable
                     ->color(fn($state) => match ($state) {
                         'Low' => 'success',
                         'Medium' => 'warning',
-                        'High' => 'orange',
+                        'High' => 'primary',
                         'Critical' => 'danger',
                         default => 'gray',
                     })
@@ -99,5 +99,6 @@ class InvoiceTrackingsTable
                     DeleteBulkAction::make(),
                 ]),
             ]);
+            
     }
 }
